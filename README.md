@@ -1,9 +1,9 @@
 # Paraphrase Generation web demo
 
-> Open sourced mplementation of [this paper](http://www.isi.edu/natural-language/projects/rewrite/bopang.pdf):
+> Open sourced implementation of [this paper](http://www.isi.edu/natural-language/projects/rewrite/bopang.pdf):
 **Syntax-based Alignment of Multiple Translations: Extracting Paraphrases
 and Generating New Sentences** 
-<br>Demo is available at [here](http://paraphrase-generation-web-demo.herokuapp.com/).
+<br>Demo is available [here](http://paraphrase-generation-web-demo.herokuapp.com/).
 
 
 ### Installation
@@ -64,7 +64,7 @@ Please Note:
 
 ---
 
-<br><br><br>
+<br><br>
 In case you plan to use it in your research, please cite the above paper using:
 
 ```

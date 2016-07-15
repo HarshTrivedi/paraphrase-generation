@@ -22,7 +22,7 @@ list_of_sentences = [
 # So it takes time to load main_lib, but subsequent calls are quick.
 
 
-fsm_code = get_fsm(list_of_sentences)
+fsm = get_fsm(list_of_sentences)
 # returns instance of Fsm class.
 
 
@@ -37,7 +37,7 @@ fsm_code = get_fsm(list_of_sentences)
 # Each instance of FsmNode is identified by unique id which can be used to indentify the node while traversing.
 
 
-print fsm_code.start
-print fsm_code.end
-print fsm_code.start.nexts
-print fsm_code.end.previouses
+print fsm.start
+print fsm.end
+print fsm.start.nexts
+print fsm.end.previouses
