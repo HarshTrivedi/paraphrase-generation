@@ -110,12 +110,12 @@ class ParseForest:
 
 	@classmethod 	# class method
 	def codify_parse_string(cls, parse_string):
-		return re.sub( r'(\([\w$]+ )([\w\']+)', lambda match: match.group(1) + ParseForest.next_unique_word_id(match.group(2)) , parse_string )
+		return re.sub( r'(\([\w$\.]+ )([\w\'\.\,]+)', lambda match: match.group(1) + ParseForest.next_unique_word_id(match.group(2)) , parse_string )
 
 
 	@classmethod
 	def get_codified_tokens(cls, codified_parse_string):
-		return map( lambda match: match[1] , re.findall( r'(\([\w$]+ )([\w\']+)', codified_parse_string ) )
+		return map( lambda match: match[1] , re.findall( r'(\([\w$\.]+ )([\w\'\.\,]+)', codified_parse_string ) )
 
 
 	@classmethod 	# class method
