@@ -1,4 +1,4 @@
-# Paraphrase Generation web demo
+# Paraphrase Generation
 
 > Open sourced implementation of [this paper](http://www.isi.edu/natural-language/projects/rewrite/bopang.pdf):
 **Syntax-based Alignment of Multiple Translations: Extracting Paraphrases
