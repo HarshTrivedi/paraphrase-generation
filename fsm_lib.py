@@ -35,6 +35,28 @@ class Fsm:
 	def is_connected(self, node_a, node_b):
 		return node_b in node_a.nexts.values() or node_a in node_b.nexts.values()
 
+	def is_remotely_connected(self, node_a, node_b):
+		return self.is_in_forward_path(node_a, node_b) or self.is_in_forward_path(node_b, node_a) or self.is_in_backward_path(node_a, node_b) or self.is_in_backward_path(node_b, node_a)
+
+	def is_in_forward_path(self, node_x, node_y):
+		if node_x == node_y:
+			return True
+		if self.end == node_x:
+			return False
+		accumalation = False
+		for next_node in node_x.nexts.values():
+			accumalation = accumalation or (self.is_in_forward_path(next_node, node_y))
+		return accumalation
+
+	def is_in_backward_path(self, node_x, node_y):
+		if node_y == node_x:
+			return True
+		if self.start == node_x:
+			return False
+		accumalation = False
+		for prev_node in node_x.previouses.values():
+			accumalation = accumalation or (self.is_in_backward_path(prev_node, node_y))
+		return accumalation
 
 	def merge_fsm_nodes(self, fsm_node_a, fsm_node_b ):
 		if fsm_node_a.id != fsm_node_b.id:
@@ -170,7 +192,7 @@ class Fsm:
 							if node_a.id != node_b.id:
 								intersection = [x for x in [node_a.id, node_b.id] if x in [self.start.id, self.end.id]]
 								if not all_merges_made.__contains__( "-".join([str(node_a.id), str(node_b.id)])) and len(intersection) == 0:
-									if not self.is_connected(node_a, node_b):
+									if not self.is_remotely_connected(node_a, node_b):
 										if node_b in self.all_nodes:
 											self.merge_fsm_nodes(node_a, node_b)
 											all_merges_made.add("-".join([str(node_a.id), str(node_b.id)]))
@@ -215,7 +237,7 @@ class Fsm:
 							if node_a.id != node_b.id:
 								intersection = [x for x in [node_a.id, node_b.id] if x in [self.start.id, self.end.id]]
 								if not all_merges_made.__contains__( "-".join([str(node_a.id), str(node_b.id)])) and len(intersection) == 0:
-									if not self.is_connected(node_a, node_b):
+									if not self.is_remotely_connected(node_a, node_b):
 										if node_b in self.all_nodes:
 											self.merge_fsm_nodes(node_a, node_b)
 											all_merges_made.add("-".join([str(node_a.id), str(node_b.id)]))
