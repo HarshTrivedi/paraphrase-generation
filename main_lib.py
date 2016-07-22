@@ -14,7 +14,7 @@ import urllib
 import pydot
 import os
 from bllipparser.ModelFetcher import download_and_install_model
-
+import re
 
 print "Loding BLLIP parse model ..."
 rrp = RerankingParser.from_unified_model_dir('bllip/models/WSJ')
@@ -27,6 +27,8 @@ print "Done."
 
 def get_fsm(list_of_sentences):
 	global rrp
+	list_of_sentences = map( lambda sentence: (str(sentence)).lower(), list_of_sentences)
+	list_of_sentences = map( lambda sentence:  re.sub(r'\..*', "", sentence ), list_of_sentences)
 	list_of_parsed_strings = map( lambda sentence: rrp.simple_parse(str(sentence)) , list_of_sentences)
 	list_of_codified_parse_strings = map( lambda parse_string: ParseForest.codify_parse_string(parse_string) , list_of_parsed_strings)
 	list_of_parse_forests = map( lambda codified_parse_string: ParseForest(codified_parse_string),  list_of_codified_parse_strings)
