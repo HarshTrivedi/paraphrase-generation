@@ -182,10 +182,24 @@ class Fsm:
 											word_id = ParseForest.next_unique_word_id("*e*")
 											node_a.nexts[word_id] = node_b
 											node_b.previouses[word_id] = node_a
+											redundant_edge = filter( lambda key: node_x.nexts.get(key, None) == node_b, keys)[0]
+											if (len(redundant_edge) > 0):
+												redundant_edge = redundant_edge[0]
+												target_node = node_x.nexts.get(redundant_edge, None)
+												if target_node:
+													node_x.nexts.__delitem__(redundant_edge)
+													target_node.previouses.__delitem__(redundant_edge)
 										else:
 											word_id = ParseForest.next_unique_word_id("*e*")
 											node_b.nexts[word_id] = node_a
 											node_a.previouses[word_id] = node_b
+											redundant_edge = filter( lambda key: node_x.nexts.get(key, None) == node_a, keys)[0]
+											if (len(redundant_edge) > 0):
+												redundant_edge = redundant_edge[0]
+												target_node = node_x.nexts.get(redundant_edge, None)
+												if target_node:
+													node_x.nexts.__delitem__(redundant_edge)
+													target_node.previouses.__delitem__(redundant_edge)
 										all_merges_made.add("-".join([str(node_a.id), str(node_b.id)]))
 
 		merges_made = 100
@@ -211,10 +225,24 @@ class Fsm:
 											word_id = ParseForest.next_unique_word_id("*e*")
 											node_a.nexts[word_id] = node_b
 											node_b.previouses[word_id] = node_a
+											redundant_edge = filter( lambda key: node_x.previouses.get(key, None) == node_a, keys)[0]
+											if (len(redundant_edge) > 0):
+												redundant_edge = redundant_edge[0]	
+												target_node = node_x.previouses.get(redundant_edge, None)
+												if target_node:
+													node_x.previouses.__delitem__(redundant_edge)
+													target_node.nexts.__delitem__(redundant_edge)
 										else:
 											word_id = ParseForest.next_unique_word_id("*e*")
 											node_b.nexts[word_id] = node_a
 											node_a.previouses[word_id] = node_b
+											redundant_edge = filter( lambda key: node_x.previouses.get(key, None) == node_b, keys)[0]
+											if (len(redundant_edge) > 0):
+												redundant_edge = redundant_edge[0]
+												target_node = node_x.previouses.get(redundant_edge, None)
+												if target_node:
+													node_x.previouses.__delitem__(redundant_edge)
+													target_node.nexts.__delitem__(redundant_edge)
 
 										all_merges_made.add("-".join([str(node_a.id), str(node_b.id)]))
 
